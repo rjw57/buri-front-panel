@@ -1,0 +1,4 @@
+*.bak
+*-cache.lib
+*.bck
+*.kicad_pcb-bak
