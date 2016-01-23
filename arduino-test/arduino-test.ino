@@ -45,6 +45,8 @@ byte state;
 #define TICK_DELAY 30
 unsigned long next_tick = millis() + TICK_DELAY;
 
+#define HALT_MASK (1<<6)
+
 void loop() {
     byte a0_7, a8_15, a16_24, ctrl;
 
@@ -58,11 +60,14 @@ void loop() {
     ctrl = spi_communicate(MX7219_NOP, 0);
 
     spi_communicate(MX7219_DIGIT_0 + 0, ctrl);
-    spi_communicate(MX7219_DIGIT_0 + 1, a0_7);
-    spi_communicate(MX7219_DIGIT_0 + 2, a8_15);
-    spi_communicate(MX7219_DIGIT_0 + 3, a16_24);
-    spi_communicate(MX7219_DIGIT_0 + 4, chase & 0xff);
-    spi_communicate(MX7219_DIGIT_0 + 5, (chase>>8) & 0xff);
+
+    if(ctrl & HALT_MASK) {
+        spi_communicate(MX7219_DIGIT_0 + 1, a0_7);
+        spi_communicate(MX7219_DIGIT_0 + 2, a8_15);
+        spi_communicate(MX7219_DIGIT_0 + 3, a16_24);
+        spi_communicate(MX7219_DIGIT_0 + 4, chase & 0xff);
+        spi_communicate(MX7219_DIGIT_0 + 5, (chase>>8) & 0xff);
+    }
 
     unsigned long now = millis();
     if(now > next_tick) {
@@ -76,6 +81,12 @@ void loop() {
         chase<<=1;
         if(chase >= 1UL<<16) {
             chase = 1;
+        }
+
+        if(!(ctrl & HALT_MASK)) {
+            for(int i=1; i<=5; ++i) {
+                spi_communicate(MX7219_DIGIT_0 + i, random(0x100));
+            }
         }
     }
 }
