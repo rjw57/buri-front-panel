@@ -47,6 +47,8 @@ unsigned long next_tick = millis() + TICK_DELAY;
 
 #define HALT_MASK (1<<6)
 
+uint_least32_t blinken_lights_a = 0, blinken_lights_b = 0;;
+
 void loop() {
     byte a0_7, a8_15, a16_24, ctrl;
 
@@ -59,14 +61,24 @@ void loop() {
     spi_communicate(MX7219_NOP, 0, 0x8);
     ctrl = spi_communicate(MX7219_NOP, 0);
 
-    spi_communicate(MX7219_DIGIT_0 + 0, ctrl);
-
     if(ctrl & HALT_MASK) {
+        spi_communicate(MX7219_DIGIT_0 + 0, ctrl);
         spi_communicate(MX7219_DIGIT_0 + 1, a0_7);
         spi_communicate(MX7219_DIGIT_0 + 2, a8_15);
         spi_communicate(MX7219_DIGIT_0 + 3, a16_24);
         spi_communicate(MX7219_DIGIT_0 + 4, chase & 0xff);
         spi_communicate(MX7219_DIGIT_0 + 5, (chase>>8) & 0xff);
+    } else {
+        for(int i=0; i<4; ++i) {
+            spi_communicate(
+                MX7219_DIGIT_0 + i,
+                (blinken_lights_a >> (i<<3)) & 0xff
+            );
+            spi_communicate(
+                MX7219_DIGIT_0 + 4 + i,
+                (blinken_lights_b >> (i<<3)) & 0xff
+            );
+        }
     }
 
     unsigned long now = millis();
@@ -83,11 +95,8 @@ void loop() {
             chase = 1;
         }
 
-        if(!(ctrl & HALT_MASK)) {
-            for(int i=1; i<=5; ++i) {
-                spi_communicate(MX7219_DIGIT_0 + i, random(0x100));
-            }
-        }
+        blinken_lights_a ^= 1UL << random(32);
+        blinken_lights_b ^= 1UL << random(32);
     }
 }
 
