@@ -1,0 +1,6 @@
+root=true
+
+[*.{c,ino,h}]
+indent_size=4
+indent_style=space
+

@@ -29,7 +29,6 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:w_logic
-LIBS:buri-front-panel-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -584,7 +583,7 @@ L R_Small R1
 U 1 1 569997B2
 P 1100 4100
 F 0 "R1" H 1130 4120 50  0000 L CNN
-F 1 "22K" H 1130 4060 50  0000 L CNN
+F 1 "33K" H 1130 4060 50  0000 L CNN
 F 2 "" H 1100 4100 50  0000 C CNN
 F 3 "" H 1100 4100 50  0000 C CNN
 	1    1100 4100
@@ -660,9 +659,9 @@ Text Label 7500 4250 2    60   ~ 0
 MISO
 NoConn ~ 7000 4350
 Text Label 4900 4500 2    60   ~ 0
-ROW4
-Text Label 4900 4400 2    60   ~ 0
 ROW3
+Text Label 4900 4400 2    60   ~ 0
+ROW2
 Text Label 4900 4300 2    60   ~ 0
 ROW1
 Text Label 4900 4200 2    60   ~ 0
@@ -1738,7 +1737,7 @@ Wire Wire Line
 NoConn ~ 11000 1100
 NoConn ~ 11000 1500
 Text Label 6000 1200 0    60   ~ 0
-ROW3
+ROW2
 Text Label 7100 1000 0    60   ~ 0
 COL3
 Text Label 7100 900  0    60   ~ 0
@@ -1839,7 +1838,7 @@ Wire Wire Line
 Wire Wire Line
 	6850 7300 6750 7300
 Text Label 600  7200 0    60   ~ 0
-ROW4
+ROW3
 Text Label 2850 7000 0    60   ~ 0
 COL4
 Text Label 2850 6900 0    60   ~ 0
