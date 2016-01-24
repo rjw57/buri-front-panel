@@ -21,12 +21,14 @@ void setup() {
     digitalWrite(DPYSS_BAR, HIGH);
     pinMode(DPYSS_BAR, OUTPUT);
 
+    digitalWrite(BUSS_BAR, HIGH);
+    pinMode(BUSS_BAR, OUTPUT);
+
     digitalWrite(SCK, LOW);
     digitalWrite(MOSI, LOW);
     pinMode(MISO, INPUT);
     pinMode(MOSI, OUTPUT);
     pinMode(SCK, OUTPUT);
-    pinMode(SS_BAR, OUTPUT);
 
     for(int digit=0; digit<8; ++digit) {
         spi_communicate(MX7219_DIGIT_0 + digit, 0);
