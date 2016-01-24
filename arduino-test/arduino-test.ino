@@ -57,6 +57,12 @@ void setup() {
     spi_communicate(MX7219_SCN_LIMIT, 0x05);   // Scan digits 0-5
     spi_communicate(MX7219_DPLY_TEST, 0x00);   // Display test on
     spi_communicate(MX7219_SHUTDOWN, 0x01);    // Normal operation
+
+    // Toggle RST
+    digitalWrite(RST_BAR, LOW);
+    pinMode(RST_BAR, OUTPUT);
+    delay(300);
+    pinMode(RST_BAR, INPUT);
 }
 
 unsigned long addr = 1;
