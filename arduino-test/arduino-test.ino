@@ -18,6 +18,25 @@ byte spi_communicate(byte mxreg, byte mxval, byte key_out = 0) {
 }
 
 void setup() {
+    pinMode(PHI2, INPUT);
+    pinMode(RW_BAR, INPUT);
+    pinMode(RST_BAR, INPUT);
+    pinMode(BE, INPUT);
+
+    digitalWrite(HALT, LOW);
+    pinMode(HALT, OUTPUT);
+
+    digitalWrite(STEP, LOW);
+    pinMode(STEP, OUTPUT);
+
+    digitalWrite(ADLOAD, LOW);
+    pinMode(ADLOAD, OUTPUT);
+
+    digitalWrite(DOE_BAR, HIGH);
+    digitalWrite(AOE_BAR, HIGH);
+    pinMode(DOE_BAR, OUTPUT);
+    pinMode(AOE_BAR, OUTPUT);
+
     digitalWrite(DPYSS_BAR, HIGH);
     pinMode(DPYSS_BAR, OUTPUT);
 
